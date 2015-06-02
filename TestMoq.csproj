@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="IMockTarget.cs" />
     <Compile Include="MoqTests.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
