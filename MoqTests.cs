@@ -13,7 +13,7 @@ namespace TestMoq
     {
         
         [Test]
-        public void CreateMockInstance()
+        public void Create_mock_instance()
         {
             IMockTarget target = GetMockObject<IMockTarget>();
             Assert.IsNotNull(target);
@@ -21,7 +21,7 @@ namespace TestMoq
 
         #region Mock Methods
         [Test]
-        public void MockVoidReturnMethod()
+        public void Mock_method_without_return()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.VoidReturnMethod());
@@ -30,7 +30,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void MockNonvoidReturnMethod()
+        public void Mock_method_with_return()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.NonvoidReturnMethod()).Returns(1);
@@ -41,7 +41,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void MockParameterizedMethodForAnyValue()
+        public void Mock_parameterized_method_for_any_value()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.ParameterizedMethod(It.IsAny<int>())).Returns(1);
@@ -53,7 +53,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void MockParameterizedMethodForValueInARange()
+        public void Mock_parameterized_method_for_values_in_a_range()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.ParameterizedMethod(It.IsInRange<int>(1, 5, Range.Inclusive))).Returns(1);
@@ -69,7 +69,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void UseMatch_ForParameterizedMethod()
+        public void Use_matcher_to_conditional_setup_parameterized_method()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.ParameterizedMethod(IsGreaterThanFive())).Returns(2);
@@ -81,7 +81,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void Another_UseMatch_ForParameterizedMethod()
+        public void Another_case_of_using_matcher_to_conditional_setup_parameterized_method()
         {
             var mock = GetMock<IMockTarget>();
             mock.Setup(m => m.ParameterizedMethod(IsGreater(5))).Returns(2);
@@ -93,7 +93,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void SetupSequence()
+        public void SetupSequence_setup_different_return_for_sequential_calls()
         {
             var mock = GetMock<IMockTarget>();
             
@@ -106,7 +106,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void MockSequence()
+        public void MockSequence_setup_different_return_for_sequential_calls()
         {
             var mock = GetMock<IMockTarget>();
 
@@ -121,7 +121,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void CallBack()
+        public void Callback_can_change_state_after_mocked_method_is_invoked()
         {
             bool called = false;
             var mock = GetMock<IMockTarget>();
@@ -135,7 +135,7 @@ namespace TestMoq
 
         #region VerifyAll & Verify
         [Test]
-        public void VerifyAll_ThrowsExceptionWhenMockedMethodIsNotInvoked()
+        public void Failed_case_VerifyAll_check_if_all_setup_methods_are_invoked()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -146,7 +146,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void VerifyAll_SuccessWhenMockedMethodIsInvoked()
+        public void Successful_case_VerifyAll_check_if_all_setup_methods_are_invoked()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -157,7 +157,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void VerifyAll_DoesNotCheckSetupSequence()
+        public void VerifyAll_does_not_check_SetupSequence()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -167,7 +167,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void VerifyAll_DoesNotCheckMockSequence()
+        public void VerifyAll_does_not_check_MockSequence()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -178,7 +178,7 @@ namespace TestMoq
             Assert.DoesNotThrow(() => { mock.VerifyAll(); });
         }
         [Test]
-        public void Verify_ThrowsExceptionWhenMockedMethodIsNotInvokedAndIsSetVerifable()
+        public void Failed_case_Verify_check_if_all_verifiable_methods_are_invoked()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -188,7 +188,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void Verify_SuccessWhenMockedMethodIsNotInvokedAndIsNotSetVerifable()
+        public void Successful_case_Verify_check_if_all_verifiable_methods_are_invoked()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -200,7 +200,7 @@ namespace TestMoq
 
         #region Mock Behavior
         [Test]
-        public void Strict_ThrowsExceptionWhenAnInvokedMethodIsNotSetUp()
+        public void Invoking_not_setup_methods_throws_exception_in_strict_mode()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>();
@@ -210,7 +210,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void Loose_ReturnsDefaultValueWhenAnInvokedMethodIsNotSetUp()
+        public void Invoking_not_setup_methods_returns_default_value_in_loose_mode()
         {
             var mockRepository = new MockRepository(MockBehavior.Loose);
             var mock = mockRepository.Create<IMockTarget>();
@@ -222,7 +222,7 @@ namespace TestMoq
         }
 
         [Test]
-        public void OverrideDefaultBehaviorForSomeMethods()
+        public void Override_default_behavior_mode_during_creating_mock_objects()
         {
             var mockRepository = new MockRepository(MockBehavior.Strict);
             var mock = mockRepository.Create<IMockTarget>(MockBehavior.Loose);
